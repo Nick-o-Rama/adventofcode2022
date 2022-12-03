@@ -26,9 +26,19 @@ def part_one(data):
     return sum_priorities
 
 
+def part_two(data):
+    sum_badge_priorities = 0
+    for i in range(0, len(data), 3):
+        common_item_group_2_group_3 = find_common_item(data[i+1], data[i+2])
+        badge = find_common_item(data[i], common_item_group_2_group_3)
+        sum_badge_priorities += get_item_priority(badge)
+    return sum_badge_priorities
+
+
 def main():
     data = get_data("input.txt")
     print("Part 1 answer: {}".format(part_one(data)))
+    print("Part 2 answer: {}".format(part_two(data)))
 
 
 if __name__ == '__main__':
