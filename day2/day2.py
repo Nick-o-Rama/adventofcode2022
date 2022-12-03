@@ -17,21 +17,42 @@ def get_shape_dict():
     return shape_dict
 
 
-def score_round(round_data):
+def get_win_dict():
+    win_dict = {
+        'A': 'Y',
+        'B': 'Z',
+        'C': 'X',
+        'X': 'C',
+        'Y': 'A',
+        'Z': 'B'
+    }
+    return win_dict
+
+
+def get_lose_dict():
+    lose_dict = {
+        'A': 'Z',
+        'B': 'X',
+        'C': 'Y'
+    }
+    return lose_dict
+
+
+def score_round(opponent_shape, player_shape):
     score = 0
-    if get_shape_dict()[round_data[1]] == round_data[0]:
+    if get_shape_dict()[player_shape] == opponent_shape:
         score += 3
-    if round_data[1] == 'X':
+    if player_shape == 'X':
         score += 1
-        if round_data[0] == 'C':
+        if opponent_shape == 'C':
             score += 6
-    if round_data[1] == 'Y':
+    if player_shape == 'Y':
         score += 2
-        if round_data[0] == 'A':
+        if opponent_shape == 'A':
             score += 6
-    if round_data[1] == 'Z':
+    if player_shape == 'Z':
         score += 3
-        if round_data[0] == 'B':
+        if opponent_shape == 'B':
             score += 6
     return score
 
@@ -39,9 +60,15 @@ def score_round(round_data):
 def score_rounds(data):
     score = 0
     for rnd in data:
-        round_score = score_round(rnd)
-        print(round_score)
-        score += score_round(rnd)
+        opponent_shape = rnd[0]
+        outcome = rnd[1]
+        if outcome == 'X':
+            player_shape = get_lose_dict()[opponent_shape]
+        if outcome == 'Y':
+            player_shape = get_shape_dict()[opponent_shape]
+        if outcome == 'Z':
+            player_shape = get_win_dict()[opponent_shape]
+        score += score_round(opponent_shape, player_shape)
     return score
 
 
