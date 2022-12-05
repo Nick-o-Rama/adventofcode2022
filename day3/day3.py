@@ -1,6 +1,6 @@
 def get_data(file_name):
     with open(file_name) as input_file:
-        data = [rucksack for rucksack in input_file.read().split('\n') if rucksack != '']
+        data = [rucksack for rucksack in input_file.read().strip().split('\n')]
         return data
 
 
